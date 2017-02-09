@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using asp_mvc_2.Models.DB;
 using asp_mvc_2.Models.ViewModel;
-using System.Collections.Generic;
 
 namespace asp_mvc_2.Models.EntityManager
 {
@@ -317,36 +316,6 @@ userID)?.FirstOrDefault().LOOKUPRoleID;
                 }
             }
         }
-        public UserProfileView GetUserProfile(int userID)
-        {
-            UserProfileView UPV = new UserProfileView();
-            using (DemoDBEntities db = new DemoDBEntities())
-            {
-                var user = db.SYSUsers.Find(userID);
-                if (user != null)
-                {
-                    UPV.SYSUserID = user.SYSUserID;
-                    UPV.LoginName = user.LoginName;
-                    UPV.Password = user.PasswordEncryptedText;
-                    var SUP = db.SYSUserProfiles.Find(userID);
-                    if (SUP != null)
-                    {
-                        UPV.FirstName = SUP.FirstName;
-                        UPV.LastName = SUP.LastName;
-                        UPV.Gender = SUP.Gender;
-                    }
-                    var SUR = db.SYSUserRoles.Find(userID);
-                    if (SUR != null)
-                    {
-                        UPV.LOOKUPRoleID = SUR.LOOKUPRoleID;
-                        UPV.RoleName = SUR.LOOKUPRole.RoleName;
-                        UPV.IsRoleActive = SUR.IsActive;
-                    }
-                }
-            }
-            return UPV;
-        }
-
     }
 
 }
